@@ -1,0 +1,262 @@
+:root {
+    --primary-color: #6f4e37;
+    --secondary-color: #a67b5b;
+    --white: #ffffff;
+    --light-background: #f5e1d1;
+    --honey-color: #fffae6;
+    --soft-yellow: #fff2cc;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--light-background);
+    color: var(--primary-color);
+    overflow-x: hidden;
+  }
+  
+ 
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .logo-text {
+    font-family: "Arial", sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #000000;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    filter: blur(0.5px);
+    margin-right: 30px;
+  }
+  
+  .main-nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    background: black;
+    border-radius: 30px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .main-nav ul li {
+    margin: 0 15px;
+  }
+  
+  .main-nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: opacity 0.3s;
+    display: block;
+    padding: 10px 15px;
+  }
+  
+  .main-nav ul li a:hover {
+    opacity: 0.7;
+  }
+  
+  /* Section 1 : Présentation de Winnie */
+  #section1 {
+    background-color: var(--honey-color);
+    padding: 8rem 2rem 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+  
+  .section-container {
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+  
+  .section-logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 100px;
+    height: auto;
+  }
+  
+  .image-container img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    margin: 0 auto;
+  }
+  
+  .text-container {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .text-container h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+  }
+  
+  .text-container p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    line-height: 1.8;
+    color: #555;
+  }
+  
+  /* Section 2 : Anecdotes */
+  #section2 {
+    background-color: var(--soft-yellow);
+    padding: 4rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    min-height: 100vh;
+  }
+  
+  .anecdotes-section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .bear-center {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .bear-center img {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .anecdotes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  
+  .anecdote {
+    position: absolute;
+    padding: 1rem;
+    background-color: var(--white);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    font-size: 0.9rem;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  
+  .anecdote.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .anecdote:nth-child(1) {
+    top: 0;
+    left: 20%;
+  }
+  .anecdote:nth-child(2) {
+    top: 0;
+    right: 20%;
+  }
+  .anecdote:nth-child(3) {
+    top: 40%;
+    left: 5%;
+  }
+  .anecdote:nth-child(4) {
+    top: 40%;
+    right: 5%;
+  }
+  .anecdote:nth-child(5) {
+    bottom: 0;
+    left: 20%;
+  }
+  .anecdote:nth-child(6) {
+    bottom: 0;
+    right: 20%;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .anecdotes-section {
+      flex-direction: column;
+    }
+  
+    .anecdotes {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+  
+    .anecdote {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      top: auto;
+      left: auto;
+      right: auto;
+      bottom: auto;
+    }
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 1rem;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+  }
+  
+  
