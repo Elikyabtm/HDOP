@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paddington - L'ours venu du Pérou</title>
+    <meta name="description" content="Découvrez l'histoire de Paddington, l'ours péruvien qui a conquis le cœur de Londres et du monde entier.">
+    <link rel="stylesheet" href="winnie.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.138.0/build/three.module.js"
+            }
+        }
+    </script>
+    <script type="module" src="paddington.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-text">URSUS</div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="#section1">À propos de Paddington</a></li>
+                    <li><a href="#section2">Où est Ursus?</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="section1" class="section">
+            <div class="section-container">
+                <div class="text-container">
+                    <h1>Paddington</h1>
+                    <p>Créé en 1958 par Michael Bond, Paddington est un ours péruvien qui arrive à Londres avec rien d'autre qu'un vieux chapeau, une valise usée et un goût prononcé pour la marmelade.</p>
+                    <p>Adopté par la famille Brown, Paddington vit de nombreuses aventures dans la capitale britannique, captivant les lecteurs du monde entier par sa gentillesse, sa politesse et son sens de l'aventure.</p>
+                </div>
+                <div class="image-container">
+                    <img src="images/paddigtonimg.png" alt="Paddington" class="main-image">
+                </div>
+            </div>
+        </section>
+
+        <section id="section2" class="section">
+            <div class="section-container game-section">
+                <h2>Où est Ursus?</h2>
+                <p>Trouvez Ursus caché dans l'image ci-dessous. Cliquez sur lui quand vous le trouvez!</p>
+                <div id="game-container">
+                    <img src="images/paddington-scene.jpg" alt="Scène de Londres avec Paddington" id="game-image">
+                    <div id="ursus-target" style="position: absolute; width: 50px; height: 50px; top: 30%; left: 40%;"></div>
+                </div>
+                <div id="game-result"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Histoire de l'ours en peluche. Tous droits réservés.</p>
+    </footer>
+
+    <canvas id="backgroundCanvas"></canvas>
+</body>
+</html>
+

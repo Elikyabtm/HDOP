@@ -53,7 +53,7 @@ header {
   display: flex;
   list-style: none;
   margin: 0;
-  background: black;
+  background: rgba(0, 0, 0, 0.795);
   border-radius: 30px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -83,7 +83,7 @@ canvas {
   width: 100%;
   height: 100%;
   z-index: 5;
-  pointer-events: none; /* Désactive les interactions sur le canvas */
+  pointer-events: none; 
 }
 
 
@@ -171,7 +171,11 @@ section:nth-child(even) .content-container {
 }
 
 #section2 {
-  background-color: #f5e1d1;
+  background-image: url("images/paper.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--white);
 }
 
 #section3 {
@@ -207,7 +211,11 @@ section:nth-child(even) .content-container {
 }
 
 #section7 {
-  background-color: #f5e1d1;
+  background-image: url("images/paper.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--white);
 }
 
 .scroll-down {
