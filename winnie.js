@@ -1,52 +1,49 @@
-import * as THREE from "three"
-
 document.addEventListener("DOMContentLoaded", () => {
-  const section = document.querySelector("#section2")
-  const anecdotes = document.querySelectorAll(".anecdote")
+  const anecdoteItems = document.querySelectorAll(".anecdote-item")
+  const menuToggle = document.querySelector(".menu-toggle")
+  const mainNav = document.querySelector(".main-nav")
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      if (entries[0].isIntersecting) {
-        anecdotes.forEach((anecdote, index) => {
-          setTimeout(() => {
-            anecdote.classList.add("visible")
-          }, index * 200)
-        })
-        observer.unobserve(section)
-      }
-    },
-    { threshold: 0.3 },
-  )
-
-  observer.observe(section)
-
-
-  window.addEventListener("resize", () => {
-    camera.aspect = window.innerWidth / window.innerHeight
-    camera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight)
-  })
-
-
-  const raycaster = new THREE.Raycaster()
-  const mouse = new THREE.Vector2()
-
-  function onMouseMove(event) {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
-
-    raycaster.setFromCamera(mouse, camera)
-    const intersects = raycaster.intersectObjects(honeyParticles)
-
-    honeyParticles.forEach((particle) => {
-      particle.material.color.setHex(0xffd700)
-    })
-
-    if (intersects.length > 0) {
-      intersects[0].object.material.color.setHex(0xff0000)
-    }
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
   }
 
-  window.addEventListener("mousemove", onMouseMove, false)
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = 1
+        entry.target.style.transform = "translateY(0)"
+        observer.unobserve(entry.target)
+      }
+    })
+  }, observerOptions)
+
+  anecdoteItems.forEach((item, index) => {
+    item.style.opacity = 0
+    item.style.transform = "translateY(20px)"
+    item.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`
+    observer.observe(item)
+  })
+
+  // Burger menu functionality
+  menuToggle.addEventListener("click", () => {
+    mainNav.classList.toggle("open")
+  })
+
+  // Close menu when a link is clicked
+  const navLinks = document.querySelectorAll(".main-nav a")
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      mainNav.classList.remove("open")
+    })
+  })
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+      mainNav.classList.remove("open")
+    }
+  })
 })
 

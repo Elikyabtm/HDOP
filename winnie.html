@@ -5,17 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Winnie l'ourson</title>
     <link rel="stylesheet" href="winnie.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="header-content">
-            <div class="logo-text">URSUS</div>
+            <a href="index.html"><img src="images/LogoUrsus.png" width="150" alt="Logo Ursus"></a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="index.html">Accueil</a></li>
                     <li><a href="#section1">À propos de Winnie</a></li>
                     <li><a href="#section2">Anecdotes</a></li>
-                    <li><a href="#section3">Galerie</a></li>
                 </ul>
             </nav>
         </div>
@@ -26,50 +32,40 @@
         <section id="section1" class="section">
             <div class="section-container">
                 <div class="text-container">
-                    <h1>Winnie l'ourson</h1>
+                    <img src="images/winnietext.png" width="400px" alt="">
                     <p>Créé en 1926 par A.A. Milne, Winnie l'ourson est un personnage emblématique de la littérature jeunesse. Inspiré par un ours en peluche appartenant au fils de l'auteur, Christopher Robin, Winnie incarne l'innocence, l'amitié et la simplicité.</p>
                     <p>Ses aventures avec Porcinet, Tigrou, Bourriquet et ses autres amis dans la Forêt des Rêves Bleus continuent de captiver petits et grands à travers le monde.</p>
                 </div>
                 <div class="image-container">
-                    <img src="images/Winnieandfriends.png" alt="Winnie l'ourson et ses amis" class="main-image">
+                    <img src="images/winnieimg.png" alt="Winnie l'ourson et ses amis" class="main-image">
                 </div>
             </div>
         </section>
-
         <section id="section2" class="section">
-            <div class="section-container anecdotes-section">
-                <div class="bear-center">
-                    <img src="images/winnieimg.png" alt="Winnie l'ourson" class="bear-image">
-                </div>
-                <div class="anecdotes">
-                    <div class="anecdote top-left">Le nom "Winnie" vient d'un ours noir canadien nommé Winnipeg.</div>
-                    <div class="anecdote top-right">Le livre original a été traduit en plus de 50 langues.</div>
-                    <div class="anecdote middle-left">Winnie l'ourson a reçu son étoile sur le Walk of Fame d'Hollywood en 2006.</div>
-                    <div class="anecdote middle-right">Les droits d'adaptation de Winnie appartiennent à Disney depuis 1961.</div>
-                    <div class="anecdote bottom-left">Le vrai Christopher Robin a donné son nom au fils de Winnie dans les histoires.</div>
-                    <div class="anecdote bottom-right">Winnie l'ourson est le personnage préféré de nombreux enfants dans le monde entier.</div>
-                </div>
-            </div>
-        </section>
+            <div class="honey-jar">
 
-        <section id="section3" class="section gallery-section">
-            <h2>Galerie de la Forêt des Rêves Bleus</h2>
-            <div class="gallery-container">
-                <div class="gallery-item">
-                    <img src="images/winnieimg.png" alt="Winnie l'ourson" class="gallery-image">
-                    <p>Winnie l'ourson</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/Winnieandfriends.png" alt="Winnie et ses amis" class="gallery-image">
-                    <p>Winnie et ses amis</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/oursursus.png" alt="Ours Ursus" class="gallery-image">
-                    <p>Ours Ursus</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/Logo Site V1.png" alt="Logo Ursus" class="gallery-image">
-                    <p>Logo Ursus</p>
+                <div class="anecdotes-container">
+                    <h2>Anecdotes sur Winnie l'Ourson</h2>
+                    <div class="anecdote-list">
+                        <div class="anecdote-item">
+                            <p>Le nom "Winnie" vient d'un ours noir canadien nommé Winnipeg</p>
+                        </div>
+                        <div class="anecdote-item">
+                            <p>Le livre original a été traduit en plus de 50 langues</p>
+                        </div>
+                        <div class="anecdote-item">
+                            <p>Winnie l'ourson a reçu son étoile sur le Walk of Fame d'Hollywood en 2006</p>
+                        </div>
+                        <div class="anecdote-item">
+                            <p>Les droits d'adaptation de Winnie appartiennent à Disney depuis 1961</p>
+                        </div>
+                        <div class="anecdote-item">
+                            <p>Le vrai Christopher Robin a donné son nom au fils de Winnie dans les histoires</p>
+                        </div>
+                        <div class="anecdote-item">
+                            <p>Winnie l'ourson est le personnage préféré de nombreux enfants dans le monde entier</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
