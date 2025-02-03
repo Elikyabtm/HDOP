@@ -46,25 +46,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
  // Gestion du menu burger
- const menuToggle = document.querySelector(".menu-toggle")
- const mainNav = document.querySelector(".main-nav")
+  const menuToggle = document.querySelector(".menu-toggle")
+  const mainNav = document.querySelector(".main-nav")
 
- menuToggle.addEventListener("click", () => {
-   mainNav.classList.toggle("open")
- })
+  menuToggle.addEventListener("click", () => {
+    mainNav.classList.toggle("open")
+  })
 
- // Fermer le menu lorsqu'un lien est cliqué
- const navLinks = document.querySelectorAll(".main-nav a")
- navLinks.forEach((link) => {
-   link.addEventListener("click", () => {
-     mainNav.classList.remove("open")
-   })
- })
+  // Fermer le menu lorsqu'un lien est cliqué
+  const navLinks = document.querySelectorAll(".main-nav a")
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      mainNav.classList.remove("open")
+    })
+  })
 
- // Fermer le menu si on clique en dehors
- document.addEventListener("click", (e) => {
-   if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
-     mainNav.classList.remove("open")
-   }
- })
+  // Fermer le menu si on clique en dehors
+  document.addEventListener("click", (e) => {
+    if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+      mainNav.classList.remove("open")
+    }
+  })
 })

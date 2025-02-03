@@ -212,7 +212,7 @@ section:nth-child(even) .content-container {
 
 
 #section2 {
-  background-image: url("images/bg1.webp");
+  background-image: url("images/bg2.jpeg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -252,7 +252,10 @@ section:nth-child(even) .content-container {
 }
 
 #section7 {
-  background-color: #f6d1a2;
+  background-image: url("images/bg2.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--white);
 }
 
