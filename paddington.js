@@ -1,78 +1,132 @@
-import * as THREE from "three"
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Jeu "Où est Ursus?"
-  const ursusTarget = document.getElementById("ursus-target")
-  const gameResult = document.getElementById("game-result")
+  // Configuration du jeu
+  const gameImages = [
+    {
+      "src": "images/Extrait1.jpg",
+      "ursusPosition": { "x": 91.99, "y": 87.28 }
+    },
+    {
+      "src": "images/Extrait2.jpg",
+      "ursusPosition": { "x": 91.98, "y": 20.81 }
+    },    
+    {
+      "src": "images/Extrait3.jpg",
+      "ursusPosition": { "x": 10.47, "y": 36.75 }
+    },
+    {
+      "src": "images/Extrait4.jpg",
+      "ursusPosition": { "x": 10.0, "y": 100.73 }
+    },
+    {
+      "src": "images/Extrait5.jpg",
+      "ursusPosition": { "x": 90.57, "y": 35.1 }
+    },
+    {
+      "src": "images/Extrait6.jpg",
+      "ursusPosition": { "x": 90.06, "y": 70.15 }
+    },
+    {
+      "src": "images/Extrait7.jpg",
+      "ursusPosition": { "x": 13.8, "y": 36.78 }
+    }
+  ]
 
-  ursusTarget.addEventListener("click", () => {
-    gameResult.textContent = "Bravo ! Vous avez trouvé Ursus !"
-    gameResult.style.color = "green"
-  })
+  // Éléments du DOM
+  const startButton = document.getElementById("start-game")
+  const gameContainer = document.getElementById("game-container")
+  const gameImage = document.getElementById("game-image")
+  const successMessage = document.getElementById("success-message")
+  const gameOver = document.getElementById("game-over")
+  const replayButton = document.getElementById("replay-button")
+  const timerElement = document.getElementById("timer")
+  const scoreElement = document.getElementById("score")
+  const finalScoreElement = document.getElementById("final-score")
 
-  // Animation de fond avec Three.js
-  const scene = new THREE.Scene()
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-  const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("backgroundCanvas"), alpha: true })
+  // Variables du jeu
+  let currentImage = 0
+  let score = 0
+  let timeLeft = 10
+  let timer
+  let isPlaying = false
+  let canClick = true // Nouvelle variable pour contrôler les clics
 
-  renderer.setSize(window.innerWidth, window.innerHeight)
-  camera.position.z = 5
-
-  const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2)
-  const material = new THREE.MeshBasicMaterial({ color: 0x964b00, transparent: true, opacity: 0.6 })
-  const marmaladeParticles = []
-
-  for (let i = 0; i < 100; i++) {
-    const particle = new THREE.Mesh(geometry, material)
-    particle.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 5 - 2.5)
-    scene.add(particle)
-    marmaladeParticles.push(particle)
+  // Fonctions du jeu
+  function startGame() {
+    isPlaying = true
+    currentImage = 0
+    score = 0
+    scoreElement.textContent = score
+    startButton.classList.add("hidden")
+    gameOver.classList.add("hidden")
+    gameContainer.classList.remove("hidden")
+    canClick = true // Réinitialiser canClick au début du jeu
+    showCurrentImage()
+    startTimer()
   }
 
-  function animate() {
-    requestAnimationFrame(animate)
+  function showCurrentImage() {
+    gameImage.src = gameImages[currentImage].src
+    timeLeft = 10
+    timerElement.textContent = timeLeft
+    canClick = true // Réactiver les clics pour la nouvelle image
+  }
 
-    marmaladeParticles.forEach((particle) => {
-      particle.position.y -= 0.01
-      if (particle.position.y < -5) {
-        particle.position.y = 5
+  function startTimer() {
+    timer = setInterval(() => {
+      timeLeft--
+      timerElement.textContent = timeLeft
+      if (timeLeft <= 0) {
+        handleNextImage()
       }
-      particle.rotation.x += 0.01
-      particle.rotation.y += 0.01
-    })
-
-    renderer.render(scene, camera)
+    }, 1000)
   }
 
-  animate()
+  function handleClick(e) {
+    if (!isPlaying || !canClick) return // Vérifier si on peut cliquer
 
-  // Redimensionnement de la fenêtre
-  window.addEventListener("resize", () => {
-    camera.aspect = window.innerWidth / window.innerHeight
-    camera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight)
-  })
+    const rect = gameImage.getBoundingClientRect()
+    const x = ((e.clientX - rect.left) / rect.width) * 100
+    const y = ((e.clientY - rect.top) / rect.height) * 100
 
-  // Interaction avec la souris
-  const raycaster = new THREE.Raycaster()
-  const mouse = new THREE.Vector2()
+    const currentUrsus = gameImages[currentImage].ursusPosition
+    const distance = Math.sqrt(Math.pow(x - currentUrsus.x, 2) + Math.pow(y - currentUrsus.y, 2))
 
-  function onMouseMove(event) {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+    if (distance < 10) {
+      clearInterval(timer)
+      score++
+      scoreElement.textContent = score
+      successMessage.classList.remove("hidden")
+      canClick = false // Désactiver les clics après avoir trouvé Ursus
 
-    raycaster.setFromCamera(mouse, camera)
-    const intersects = raycaster.intersectObjects(marmaladeParticles)
-
-    marmaladeParticles.forEach((particle) => {
-      particle.material.color.setHex(0x964b00)
-    })
-
-    if (intersects.length > 0) {
-      intersects[0].object.material.color.setHex(0xff4500)
+      setTimeout(() => {
+        successMessage.classList.add("hidden")
+        handleNextImage()
+      }, 1500)
     }
   }
 
-  window.addEventListener("mousemove", onMouseMove, false)
+  function handleNextImage() {
+    clearInterval(timer)
+    if (currentImage < gameImages.length - 1) {
+      currentImage++
+      showCurrentImage()
+      startTimer()
+    } else {
+      endGame()
+    }
+  }
+
+  function endGame() {
+    isPlaying = false
+    clearInterval(timer)
+    finalScoreElement.textContent = score
+    gameContainer.classList.add("hidden")
+    gameOver.classList.remove("hidden")
+  }
+
+  // Event listeners
+  startButton.addEventListener("click", startGame)
+  replayButton.addEventListener("click", startGame)
+  gameContainer.addEventListener("click", handleClick)
 })
 

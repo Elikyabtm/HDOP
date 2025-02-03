@@ -21,6 +21,8 @@ const material = new THREE.MeshBasicMaterial({
   transparent: true,
 })
 const plane = new THREE.Mesh(geometry, material)
+plane.position.set(-2.5, -2, 0) // Initial position of the bear (more to the left)
+plane.scale.set(2.5, 2.5, 1) // Make the bear 150% larger initially
 scene.add(plane)
 
 // Position target for animation
@@ -36,8 +38,23 @@ const updateTargetPosition = () => {
   const sections = 7
   const currentSection = Math.floor(scrollProgress * sections)
 
-  targetPosition.x = currentSection === 0 ? 0 : currentSection % 2 === 0 ? 1.5 : -1.5
-  targetPosition.y = currentSection === 0 ? -1.5 : 0
+  // Calculer un facteur de transition basé sur le défilement dans la première section
+  const transitionFactor = Math.max(0, Math.min(1, scrollProgress * sections))
+
+  // Interpoler la taille entre 2.5 (250%) et 2 (200%)
+  const scale = 1.5 - 0.3 * transitionFactor
+
+  if (currentSection === 0) {
+    targetPosition.x = -2.5 + 2.5 * transitionFactor // Transition de -2.5 à 0
+    targetPosition.y = -2 + 2 * transitionFactor // Transition de -2 à 0
+  } else {
+    // Augmenter l'amplitude du mouvement gauche-droite
+    targetPosition.x = currentSection % 2 === 0 ? 3 : -3
+    targetPosition.y = 0
+  }
+
+  // Appliquer la nouvelle échelle
+  plane.scale.set(scale, scale, 1)
 }
 
 // Smooth movement to the target position
@@ -47,6 +64,15 @@ const moveToTarget = (mesh, target) => {
   const speed = 0.02
   mesh.position.x += (target.x - mesh.position.x) * speed
   mesh.position.y += (target.y - mesh.position.y) * speed
+
+  // Transition douce de la taille
+  const currentScale = mesh.scale.x
+  const targetScale = plane.scale.x // Utilisez l'échelle calculée dans updateTargetPosition
+  mesh.scale.x += (targetScale - currentScale) * speed
+  mesh.scale.y += (targetScale - currentScale) * speed
+
+  // Add a slight rotation to give the impression of floating
+  mesh.rotation.z = Math.sin(Date.now() * 0.001) * 0.1
 
   animationFrameId = requestAnimationFrame(() => moveToTarget(mesh, target))
 }
@@ -117,7 +143,7 @@ const throttle = (func, limit) => {
   let inThrottle
   return function () {
     const args = arguments
-    
+
     if (!inThrottle) {
       func.apply(this, args)
       inThrottle = true
@@ -139,3 +165,6 @@ const stopAnimation = () => {
   cancelAnimationFrame(animationFrameId)
 }
 
+// Start the animation immediately
+updateTargetPosition()
+startAnimation()
